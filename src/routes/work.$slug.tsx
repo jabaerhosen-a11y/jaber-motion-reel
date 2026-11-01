@@ -42,8 +42,8 @@ function Detail() {
   const { slug } = Route.useParams();
   const { data: all } = useSuspenseQuery(projectsQuery);
   const i = all.findIndex((x) => x.slug === slug);
-  const p = all[i];
-  const next = all[(i + 1) % all.length];
+  const p = all[i]!;
+  const next = all[(i + 1) % all.length]!;
   const portrait = p.orientation === "portrait";
 
   return (
