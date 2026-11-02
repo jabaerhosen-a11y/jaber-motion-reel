@@ -1,94 +1,46 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { ArrowUpRight, Play } from "lucide-react";
+import { useState } from "react";
+import { ArrowUpRight, Play, ArrowDown } from "lucide-react";
 import hero from "@/assets/jaber-hero.jpg";
 import { projectsQuery, servicesQuery, settingsQuery } from "@/lib/portfolio";
-import { ProjectCard } from "@/components/site/ProjectCard";
+import { Button } from "@/components/ui/button";
+import { Header, Footer } from "@/components/site/SiteChrome";
+import { InlineVideo, VideoGallery } from "@/components/site/VideoGallery";
+import { AboutSection, ContactSection, ServicesSlideshow } from "@/components/site/HomeSections";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Jaber Nafiz — Video Editor & Motion Graphics Designer" },
-      { name: "description", content: "Strategic video editing, storytelling and motion graphics for brands, creators and businesses." },
-      { property: "og:title", content: "Jaber Nafiz — Video Editor & Motion Graphics Designer" },
-      { property: "og:description", content: "Videos that make people stop scrolling. See the work." },
-    ],
-  }),
-  loader: ({ context }) =>
-    Promise.all([
-      context.queryClient.ensureQueryData(projectsQuery),
-      context.queryClient.ensureQueryData(servicesQuery),
-      context.queryClient.ensureQueryData(settingsQuery),
-    ]),
+  head: () => ({ meta: [
+    { title: "Jaber Nafiz — Video Editor & Motion Graphics Designer" },
+    { name: "description", content: "Explore Jaber Nafiz's films, reels and motion graphics. Watch the portfolio and start your next project." },
+    { property: "og:title", content: "Jaber Nafiz — Video Editor & Motion Graphics Designer" },
+    { property: "og:description", content: "Films, reels and motion graphics. Every frame intentional." },
+    { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
+  ] }),
+  loader: ({ context }) => Promise.all([context.queryClient.ensureQueryData(projectsQuery), context.queryClient.ensureQueryData(servicesQuery), context.queryClient.ensureQueryData(settingsQuery)]),
   component: Home,
-  errorComponent: ({ error }) => <p className="p-32 text-center">{error instanceof Error ? error.message : "Error"}</p>,
-  notFoundComponent: () => <p className="p-32 text-center">Not found</p>,
 });
-
 function Home() {
   const { data: projects } = useSuspenseQuery(projectsQuery);
   const { data: services } = useSuspenseQuery(servicesQuery);
-  const { data: s } = useSuspenseQuery(settingsQuery);
-  const featured = projects.filter((p) => p.featured).slice(0, 4);
-
-  return (
-    <>
-      <section className="grain relative min-h-[100svh] overflow-hidden pt-16">
-        <img src={hero} alt="Jaber Nafiz" className="absolute inset-0 h-full w-full object-cover object-[70%_center] opacity-60 md:object-right" />
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 h-40 fade-bottom" />
-        <div className="relative mx-auto flex min-h-[calc(100svh-4rem)] max-w-7xl flex-col justify-end px-5 pb-16 md:justify-center">
-          <p className="eyebrow flex items-center gap-2">
-            <span className="h-2 w-2 animate-pulse-ring rounded-full bg-primary" /> Available for projects
-          </p>
-          <h1 className="text-mega mt-6 max-w-4xl text-[13vw] sm:text-7xl lg:text-8xl">
-            I CREATE VIDEOS THAT MAKE PEOPLE <span className="text-primary text-glow">STOP SCROLLING.</span>
-          </h1>
-          <p className="mt-6 max-w-lg text-muted-foreground">{s?.hero_subtext}</p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link to="/work" className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 font-semibold text-primary-foreground hover:bg-primary-hover">
-              <Play className="h-4 w-4 fill-current" /> View my work
-            </Link>
-            <Link to="/contact" className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 font-semibold hover:border-primary">
-              Start a project <ArrowUpRight className="h-4 w-4" />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <div className="overflow-hidden border-y border-border bg-primary py-3 text-primary-foreground">
-        <div className="flex w-max animate-marquee gap-10 font-display text-xl font-bold uppercase">
-          {[...services, ...services].map((sv, i) => (
-            <span key={i}>{sv.name} ✦</span>
-          ))}
-        </div>
+  const { data: settings } = useSuspenseQuery(settingsQuery);
+  const [showreelPlaying, setShowreelPlaying] = useState(false);
+  const reel = projects.find((p) => p.video_url === settings?.showreel_url);
+  return <><Header /><main>
+    <section id="home" className="portfolio-hero relative isolate overflow-hidden pt-16">
+      <img src={hero} alt="Jaber Nafiz" fetchPriority="high" className="hero-portrait absolute right-0 top-16 h-[calc(100%-4rem)] object-cover object-top" />
+      <div className="hero-shade pointer-events-none absolute inset-0" />
+      <div className="hero-copy relative mx-auto flex max-w-7xl flex-col justify-center px-5 py-12">
+        <p className="eyebrow flex items-center gap-2"><span className="size-2 rounded-full bg-primary" />{settings?.availability === "available" ? "Available for projects" : "Video editor & motion designer"}</p>
+        <h1 className="text-mega mt-6 text-5xl sm:text-7xl lg:text-8xl">JABER<br /><span className="text-primary">NAFIZ.</span></h1>
+        <p className="mt-5 max-w-md font-display text-xl md:text-2xl">Video Editor.<br />Motion Graphics Designer.</p>
+        <p className="mt-5 max-w-md text-sm leading-relaxed text-muted-foreground">{settings?.hero_subtext}</p>
+        <div className="mt-8 flex flex-wrap gap-3"><Button asChild size="lg"><a href="#work"><Play className="fill-current" />View my work</a></Button><Button asChild variant="outline" size="lg"><a href="#contact">Start a project<ArrowUpRight /></a></Button></div>
+        <a href="#work" aria-label="Scroll to work" className="mt-10 self-start text-muted-foreground hover:text-primary"><ArrowDown className="size-5" /></a>
       </div>
-
-      {s?.showreel_url && (
-        <section className="mx-auto max-w-7xl px-5 py-20">
-          <p className="eyebrow">Showreel</p>
-          <div className="mt-6 aspect-video overflow-hidden rounded-xl border border-border">
-            <iframe src={s.showreel_url} title="Showreel" allow="autoplay; fullscreen" allowFullScreen className="h-full w-full" />
-          </div>
-        </section>
-      )}
-
-      <section className="mx-auto max-w-7xl px-5 pb-20">
-        <div className="flex items-end justify-between">
-          <h2 className="text-mega text-4xl md:text-6xl">Selected work</h2>
-          <Link to="/work" className="eyebrow hover:text-primary">All {projects.length} projects →</Link>
-        </div>
-        <div className="mt-8 grid gap-5 sm:grid-cols-2">
-          {featured.map((p) => <ProjectCard key={p.id} p={p} />)}
-        </div>
-      </section>
-
-      <section className="border-t border-border bg-background-alt py-20">
-        <div className="mx-auto max-w-7xl px-5 text-center">
-          <h2 className="text-mega text-4xl md:text-6xl">Got footage? <span className="text-primary">Let's make it hit.</span></h2>
-          <Link to="/contact" className="mt-8 inline-flex rounded-full bg-primary px-8 py-4 font-semibold text-primary-foreground">Get in touch</Link>
-        </div>
-      </section>
-    </>
-  );
+    </section>
+    <div className="overflow-hidden border-y border-border bg-primary py-3 text-primary-foreground" aria-hidden="true"><div className="flex w-max animate-marquee gap-10 font-display text-lg font-bold uppercase">{[...services, ...services].map((s, i) => <span key={i}>{s.name} ✦</span>)}</div></div>
+    {settings?.showreel_url && <section id="showreel" className="mx-auto max-w-5xl px-5 py-16"><div className="mb-6 flex items-end justify-between gap-3"><div><p className="eyebrow">In the spotlight</p><h2 className="text-mega mt-3 text-3xl md:text-5xl">Showreel<span className="text-primary">.</span></h2></div><span className="font-mono text-xs text-muted-foreground">{reel?.orientation === "portrait" ? "9:16" : "16:9"}</span></div><div className={reel?.orientation === "portrait" ? "mx-auto max-w-sm" : ""}><InlineVideo project={reel ?? { title: "Jaber Nafiz showreel", orientation: "landscape", video_url: settings.showreel_url, thumbnail_url: settings.showreel_thumbnail ?? hero, duration: "" }} active={showreelPlaying} onPlay={() => setShowreelPlaying(true)} onClose={() => setShowreelPlaying(false)} /></div></section>}
+    <VideoGallery projects={projects} /><ServicesSlideshow services={services} /><AboutSection settings={settings} count={projects.length} /><ContactSection settings={settings} />
+  </main><Footer settings={settings} /></>;
 }
