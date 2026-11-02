@@ -19,7 +19,7 @@ export function ServicesSlideshow({ services }: { services: Service[] }) {
       <p className="eyebrow">What I do</p><h2 className="text-mega mt-4 text-4xl md:text-6xl">From footage.<br /><span className="text-primary">To feeling.</span></h2>
       <Carousel setApi={setApi} opts={{ loop: true, align: "start" }} className="mt-10 pb-16" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} onFocusCapture={() => setPaused(true)} onBlurCapture={() => setPaused(false)} aria-label="Editing services">
         <CarouselContent>{services.map((s, i) => {
-          const Icon = icons[i % icons.length];
+          const Icon = icons[i % icons.length] ?? Film;
           return <CarouselItem key={s.id} className="sm:basis-1/2 lg:basis-1/3">
             <article className="flex h-full min-h-80 flex-col rounded-lg border border-border bg-card p-7 transition-colors hover:border-primary/60">
               <div className="flex items-center justify-between"><Icon className="size-8 text-primary" /><span className="font-mono text-xs text-muted-foreground">{String(i + 1).padStart(2, "0")} / {String(services.length).padStart(2, "0")}</span></div>

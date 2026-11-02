@@ -219,9 +219,13 @@
 .work-tile { animation: tile-enter 550ms ease-out both; }
 @keyframes tile-enter { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
 @media (max-width: 767px) {
-  .portfolio-hero { min-height: 800px; height: auto; }
-  .hero-portrait { width: 100%; height: 450px; top: 64px; object-position: center 18%; }
-  .hero-copy { padding-top: 420px; padding-bottom: 36px; }
-  .hero-shade { background: linear-gradient(180deg, transparent 28%, var(--background) 57%); }
+  .portfolio-hero { min-height: 0; height: auto; }
+  .hero-portrait { width: 100%; height: 315px; top: 64px; object-position: center 18%; }
+  .hero-copy { padding-top: 280px; padding-bottom: 24px; }
+  .hero-copy h1 { margin-top: 16px; }
+  .hero-copy p { margin-top: 12px; }
+  .hero-copy > div { margin-top: 20px; }
+  .hero-copy > a { margin-top: 20px; }
+  .hero-shade { background: linear-gradient(180deg, transparent 22%, var(--background) 46%); }
 }
 @media (prefers-reduced-motion: reduce) { .work-tile { animation: none; } }
