@@ -8,3 +8,8 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+## Portfolio architecture
+- Home owns all portfolio sections and playback; legacy page URLs redirect to Home section anchors to preserve shared links.
+- Use InlineVideo for both showreel and gallery playback, with format logic in video-format so aspect ratios remain consistent.
+- Service slides use the existing Embla carousel; automatic motion pauses on interaction and respects reduced motion.

@@ -114,7 +114,7 @@
   }
   h1, h2, h3, h4 {
     font-family: var(--font-display);
-    letter-spacing: -0.03em;
+    letter-spacing: 0;
   }
   ::selection {
     background: var(--primary);
@@ -134,7 +134,7 @@
   font-family: var(--font-display);
   font-weight: 700;
   line-height: 0.88;
-  letter-spacing: -0.055em;
+  letter-spacing: 0;
 }
 
 @utility eyebrow {
@@ -211,3 +211,17 @@
     scroll-behavior: auto !important;
   }
 }
+
+.portfolio-hero { min-height: 670px; height: min(800px, 88svh); }
+.hero-portrait { width: 52%; }
+.hero-copy { height: 100%; }
+.hero-shade { background: linear-gradient(90deg, var(--background) 0%, var(--background) 38%, transparent 65%); }
+.work-tile { animation: tile-enter 550ms ease-out both; }
+@keyframes tile-enter { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+@media (max-width: 767px) {
+  .portfolio-hero { min-height: 800px; height: auto; }
+  .hero-portrait { width: 100%; height: 450px; top: 64px; object-position: center 18%; }
+  .hero-copy { padding-top: 420px; padding-bottom: 36px; }
+  .hero-shade { background: linear-gradient(180deg, transparent 28%, var(--background) 57%); }
+}
+@media (prefers-reduced-motion: reduce) { .work-tile { animation: none; } }
