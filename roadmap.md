@@ -3,3 +3,8 @@
 - [x] Organize all videos by format with in-page playback, search, and filtering.
 - [x] Add animated service carousel, visible portrait, and social footer.
 - [x] Verify playback containers, interactions, and mobile layout.
+- [x] Fix uncropped single-click playback and remove ratio labels.
+- [x] Set Cinematic 4K Edit as showreel.
+- [x] Make service slides continuous with hover pause and glow.
+- [x] Correct About portrait without changing other sections.
+- [x] Verify requested updates on desktop and phone.

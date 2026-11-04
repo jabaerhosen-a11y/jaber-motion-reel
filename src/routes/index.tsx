@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Header, Footer } from "@/components/site/SiteChrome";
 import { InlineVideo, VideoGallery } from "@/components/site/VideoGallery";
 import { AboutSection, ContactSection, ServicesSlideshow } from "@/components/site/HomeSections";
+import { selectShowreel } from "@/lib/video-media";
 
 export const Route = createFileRoute("/")({
   head: () => ({ meta: [
@@ -25,7 +26,7 @@ function Home() {
   const { data: services } = useSuspenseQuery(servicesQuery);
   const { data: settings } = useSuspenseQuery(settingsQuery);
   const [showreelPlaying, setShowreelPlaying] = useState(false);
-  const reel = projects.find((p) => p.video_url === settings?.showreel_url);
+  const reel = selectShowreel(projects, settings?.showreel_url);
   return <><Header /><main>
     <section id="home" className="portfolio-hero relative isolate overflow-hidden pt-16">
       <img src={hero} alt="Jaber Nafiz" fetchPriority="high" className="hero-portrait absolute right-0 top-16 h-[calc(100%-4rem)] object-cover object-top" />
@@ -40,7 +41,7 @@ function Home() {
       </div>
     </section>
     <div className="overflow-hidden border-y border-border bg-primary py-3 text-primary-foreground" aria-hidden="true"><div className="flex w-max animate-marquee gap-10 font-display text-lg font-bold uppercase">{[...services, ...services].map((s, i) => <span key={i}>{s.name} ✦</span>)}</div></div>
-    {settings?.showreel_url && <section id="showreel" className="mx-auto max-w-5xl px-5 py-16"><div className="mb-6 flex items-end justify-between gap-3"><div><p className="eyebrow">In the spotlight</p><h2 className="text-mega mt-3 text-3xl md:text-5xl">Showreel<span className="text-primary">.</span></h2></div><span className="font-mono text-xs text-muted-foreground">{reel?.orientation === "portrait" ? "9:16" : "16:9"}</span></div><div className={reel?.orientation === "portrait" ? "mx-auto max-w-sm" : ""}><InlineVideo project={reel ?? { title: "Jaber Nafiz showreel", orientation: "landscape", video_url: settings.showreel_url, thumbnail_url: settings.showreel_thumbnail ?? hero, duration: "" }} active={showreelPlaying} onPlay={() => setShowreelPlaying(true)} onClose={() => setShowreelPlaying(false)} /></div></section>}
+    {(reel || settings?.showreel_url) && <section id="showreel" className="mx-auto max-w-5xl px-5 py-16"><div className="mb-6"><p className="eyebrow">In the spotlight</p><h2 className="text-mega mt-3 text-3xl md:text-5xl">Showreel<span className="text-primary">.</span></h2></div><div className={reel?.orientation === "portrait" ? "mx-auto max-w-sm" : ""}><InlineVideo project={reel ?? { title: "Jaber Nafiz showreel", orientation: "landscape", video_url: settings?.showreel_url ?? "", thumbnail_url: settings?.showreel_thumbnail ?? hero, duration: "" }} active={showreelPlaying} onPlay={() => setShowreelPlaying(true)} onClose={() => setShowreelPlaying(false)} /></div></section>}
     <VideoGallery projects={projects} /><ServicesSlideshow services={services} /><AboutSection settings={settings} count={projects.length} /><ContactSection settings={settings} />
   </main><Footer settings={settings} /></>;
 }
