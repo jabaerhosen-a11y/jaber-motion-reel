@@ -12,4 +12,5 @@
 ## Portfolio architecture
 - Home owns all portfolio sections and playback; legacy page URLs redirect to Home section anchors to preserve shared links.
 - Use InlineVideo for both showreel and gallery playback, with format logic in video-format so aspect ratios remain consistent.
+- Resolve portfolio playback through video-media and CDN pointers into native video elements so one click starts playback without Drive's nested player; prefer the configured gig project for the showreel.
 - Service slides use Embla Auto Scroll for continuous motion, pausing on hover/focus and respecting reduced motion.

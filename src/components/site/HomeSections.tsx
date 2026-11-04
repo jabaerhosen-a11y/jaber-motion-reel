@@ -22,7 +22,7 @@ export function ServicesSlideshow({ services }: { services: Service[] }) {
     <div className="mx-auto max-w-7xl px-5">
       <p className="eyebrow">What I do</p><h2 className="text-mega mt-4 text-4xl md:text-6xl">From footage.<br /><span className="text-primary">To feeling.</span></h2>
       <Carousel setApi={setApi} plugins={[autoScroll]} opts={{ loop: true, align: "start", dragFree: true }} className="services-carousel mt-10" aria-label="Editing services">
-        <CarouselContent>{services.map((s, i) => {
+        <CarouselContent className="py-6">{services.map((s, i) => {
           const Icon = icons[i % icons.length] ?? Film;
           return <CarouselItem key={s.id} className="sm:basis-1/2 lg:basis-1/3">
             <article className="flex h-full min-h-80 flex-col rounded-lg border border-border bg-card p-7 transition duration-300 hover:border-primary/60 hover:shadow-glow focus-within:border-primary/60 focus-within:shadow-glow">

@@ -3,6 +3,7 @@ import { Play, Search, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { categoryLabel, filterProjects, type Project } from "@/lib/portfolio";
 import { videoAspect } from "@/lib/video-format";
+import { playbackSource } from "@/lib/video-media";
 
 export function InlineVideo({ project, active, onPlay, onClose }: {
   project: Pick<Project, "title" | "orientation" | "thumbnail_url" | "video_url" | "duration">;
@@ -11,11 +12,13 @@ export function InlineVideo({ project, active, onPlay, onClose }: {
   onClose: () => void;
 }) {
   const portrait = videoAspect(project.orientation) === "9/16";
+  const source = playbackSource(project.video_url);
+  const embedded = source.includes("drive.google.com");
   return (
     <div data-video-format={videoAspect(project.orientation)} className={`relative overflow-hidden rounded-lg border border-border bg-surface ${portrait ? "aspect-[9/16]" : "aspect-video"}`}>
       {active ? (
         <>
-          <iframe src={project.video_url} title={project.title} allow="autoplay; fullscreen; picture-in-picture" allowFullScreen className="h-full w-full border-0" />
+          {embedded ? <iframe src={`${source}?autoplay=1`} title={project.title} allow="autoplay; fullscreen; picture-in-picture" allowFullScreen className="absolute inset-0 h-full w-full border-0" /> : <video src={source} aria-label={project.title} autoPlay playsInline controls preload="metadata" className="absolute inset-0 h-full w-full object-contain bg-background" />}
           <Button variant="secondary" size="icon" onClick={onClose} aria-label={`Close ${project.title}`} title="Close video" className="absolute right-2 top-2 z-10"><X /></Button>
         </>
       ) : (
@@ -37,8 +40,8 @@ export function VideoGallery({ projects }: { projects: Project[] }) {
   const categories = Array.from(new Set(projects.map((p) => p.category)));
   const filtered = filterProjects(projects, category, query);
   const groups = [
-    { label: "Films & motion", orientation: "landscape", format: "16:9" },
-    { label: "Reels & vertical stories", orientation: "portrait", format: "9:16" },
+    { label: "Films & motion", orientation: "landscape" },
+    { label: "Reels & vertical stories", orientation: "portrait" },
   ];
   return (
     <section id="work" className="scroll-mt-24 border-t border-border py-16 md:py-24">
