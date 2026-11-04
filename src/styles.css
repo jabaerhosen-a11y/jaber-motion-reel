@@ -217,6 +217,7 @@
 .hero-copy { height: 100%; }
 .hero-shade { background: linear-gradient(90deg, var(--background) 0%, var(--background) 38%, transparent 65%); }
 .work-tile { animation: tile-enter 550ms ease-out both; }
+.services-carousel [data-slot="carousel-content"] { padding-block: 24px; }
 @keyframes tile-enter { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
 @media (max-width: 767px) {
   .portfolio-hero { min-height: 0; height: auto; }

@@ -1,27 +1,31 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import AutoScroll from "embla-carousel-auto-scroll";
 import { Film, Scissors, Sparkles, MonitorPlay, MessageCircle, Mail, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from "@/components/ui/carousel";
+import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
 import { WHATSAPP_URL, type Service, type Settings } from "@/lib/portfolio";
-import portrait from "@/assets/jaber-hero.jpg";
+import portrait from "@/assets/jaber-about-natural.jpg";
 
 export function ServicesSlideshow({ services }: { services: Service[] }) {
   const [api, setApi] = useState<CarouselApi>();
-  const [paused, setPaused] = useState(false);
+  const autoScroll = useMemo(() => AutoScroll({ speed: 0.7, startDelay: 0, playOnInit: false, stopOnInteraction: false, stopOnMouseEnter: true, stopOnFocusIn: true }), []);
   useEffect(() => {
-    if (!api || paused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const timer = window.setInterval(() => api.scrollNext(), 4500);
-    return () => window.clearInterval(timer);
-  }, [api, paused]);
+    if (!api) return;
+    const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const sync = () => { if (motion.matches) autoScroll.stop(); else autoScroll.play(); };
+    sync();
+    motion.addEventListener("change", sync);
+    return () => { motion.removeEventListener("change", sync); autoScroll.stop(); };
+  }, [api, autoScroll]);
   const icons = [Scissors, Sparkles, Film, MonitorPlay];
   return <section id="services" className="scroll-mt-24 border-y border-border bg-background-alt py-16 md:py-24">
     <div className="mx-auto max-w-7xl px-5">
       <p className="eyebrow">What I do</p><h2 className="text-mega mt-4 text-4xl md:text-6xl">From footage.<br /><span className="text-primary">To feeling.</span></h2>
-      <Carousel setApi={setApi} opts={{ loop: true, align: "start" }} className="mt-10 pb-16" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} onFocusCapture={() => setPaused(true)} onBlurCapture={() => setPaused(false)} aria-label="Editing services">
+      <Carousel setApi={setApi} plugins={[autoScroll]} opts={{ loop: true, align: "start", dragFree: true }} className="services-carousel mt-10" aria-label="Editing services">
         <CarouselContent>{services.map((s, i) => {
           const Icon = icons[i % icons.length] ?? Film;
           return <CarouselItem key={s.id} className="sm:basis-1/2 lg:basis-1/3">
-            <article className="flex h-full min-h-80 flex-col rounded-lg border border-border bg-card p-7 transition-colors hover:border-primary/60">
+            <article className="flex h-full min-h-80 flex-col rounded-lg border border-border bg-card p-7 transition duration-300 hover:border-primary/60 hover:shadow-glow focus-within:border-primary/60 focus-within:shadow-glow">
               <div className="flex items-center justify-between"><Icon className="size-8 text-primary" /><span className="font-mono text-xs text-muted-foreground">{String(i + 1).padStart(2, "0")} / {String(services.length).padStart(2, "0")}</span></div>
               <h3 className="mt-8 font-display text-2xl font-semibold">{s.name}</h3><p className="mt-3 text-sm leading-relaxed text-muted-foreground">{s.description}</p>
               <ul className="mt-5 space-y-2 text-sm">{s.deliverables.map((d) => <li key={d} className="flex gap-2"><span className="text-primary">↗</span>{d}</li>)}</ul>
@@ -29,7 +33,6 @@ export function ServicesSlideshow({ services }: { services: Service[] }) {
             </article>
           </CarouselItem>;
         })}</CarouselContent>
-        <CarouselPrevious className="left-auto right-12 top-auto bottom-0 translate-y-0" /><CarouselNext className="right-0 top-auto bottom-0 translate-y-0" />
       </Carousel>
     </div>
   </section>;
