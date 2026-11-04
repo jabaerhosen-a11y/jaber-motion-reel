@@ -12,4 +12,13 @@ describe("Portfolio playback", () => {
     expect(source).toContain("cinematic-4k-edit.mp4");
     expect(source).not.toContain("drive.google.com");
   });
+  it("provides direct playback for all 13 portfolio videos", () => {
+    const copies = import.meta.glob("../assets/video-*.mp4.asset.json", { eager: true });
+    const ids = Object.keys(copies).map((path) => path.replace("../assets/video-", "").replace(".mp4.asset.json", ""));
+    ids.push("12JQ0Tm8HUyIkWqRicARHvbObJySDhOis");
+    expect(ids).toHaveLength(13);
+    for (const id of ids) {
+      expect(playbackSource(`https://drive.google.com/file/d/${id}/preview`)).not.toContain("drive.google.com");
+    }
+  });
 });
