@@ -1,4 +1,6 @@
 # Tasks
+- [ ] Add Google's verification tag and a public sitemap.
+- [ ] Publish with approval, verify ownership, and submit the sitemap.
 - [x] Add scroll-triggered text and element entrance animations.
 - [x] Make the services section more noticeable while preserving continuous hover-paused slides.
 - [x] Improve inquiry fields, add video-type selection, and organize the WhatsApp brief.

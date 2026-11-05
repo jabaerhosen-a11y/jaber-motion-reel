@@ -12,6 +12,7 @@ import { AboutSection, ContactSection, ServicesSlideshow } from "@/components/si
 import { selectShowreel } from "@/lib/video-media";
 
 export const Route = createFileRoute("/")({
+  staticData: { sitemap: true },
   head: () => ({ meta: [
     { title: "Jaber Nafiz — Video Editor & Motion Graphics Designer" },
     { name: "description", content: "Explore Jaber Nafiz's films, reels and motion graphics. Watch the portfolio and start your next project." },

@@ -74,6 +74,7 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+  staticData: { sitemap: false },
   head: () => ({
     meta: [
       { charSet: "utf-8" },
@@ -81,6 +82,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "Jaber Nafiz — Video Editor" },
       { name: "description", content: "Video editing and motion graphics by Jaber Nafiz." },
       { name: "author", content: "Jaber Nafiz" },
+      { name: "google-site-verification", content: "llTKHivrCyF62Ntsshe0lrBC7BxKt-olvvuI5BQzfyk" },
       { property: "og:title", content: "Jaber Nafiz — Video Editor" },
       { property: "og:description", content: "Video editing and motion graphics by Jaber Nafiz." },
       { property: "og:type", content: "website" },
