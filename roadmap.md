@@ -1,8 +1,8 @@
 # Tasks
-- [ ] Add scroll-triggered text and element entrance animations.
-- [ ] Make the services section more noticeable while preserving continuous hover-paused slides.
-- [ ] Improve inquiry fields, add video-type selection, and organize the WhatsApp brief.
-- [ ] Verify animations and inquiry flow on desktop and phone.
+- [x] Add scroll-triggered text and element entrance animations.
+- [x] Make the services section more noticeable while preserving continuous hover-paused slides.
+- [x] Improve inquiry fields, add video-type selection, and organize the WhatsApp brief.
+- [x] Verify animations and inquiry flow on desktop and phone.
 - [x] Consolidate all content on Home and replace page navigation with section links.
 - [x] Organize all videos by format with in-page playback, search, and filtering.
 - [x] Add animated service carousel, visible portrait, and social footer.
