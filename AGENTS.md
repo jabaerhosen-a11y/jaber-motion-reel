@@ -16,3 +16,4 @@
 - Service slides use Embla Auto Scroll for continuous motion, pausing on hover/focus and respecting reduced motion.
 - Home scroll entrances use a shared progressive-enhancement observer; leave content visible without JavaScript or with reduced motion.
 - Format contact inquiry data through project-brief for consistent WhatsApp and email messages; video choices live alongside the formatter.
+- Derive sitemap URLs from required route staticData decisions; include Home and exclude legacy redirects so search engines discover only actual public pages, without synthetic lastmod dates.
