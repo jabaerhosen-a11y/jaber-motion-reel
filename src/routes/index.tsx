@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { ArrowUpRight, Play, ArrowDown } from "lucide-react";
 import hero from "@/assets/jaber-hero.jpg";
 import { projectsQuery, servicesQuery, settingsQuery } from "@/lib/portfolio";
@@ -22,12 +23,14 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 function Home() {
+  const mainRef = useRef<HTMLElement>(null);
+  useScrollReveal(mainRef);
   const { data: projects } = useSuspenseQuery(projectsQuery);
   const { data: services } = useSuspenseQuery(servicesQuery);
   const { data: settings } = useSuspenseQuery(settingsQuery);
   const [showreelPlaying, setShowreelPlaying] = useState(false);
   const reel = selectShowreel(projects, settings?.showreel_url);
-  return <><Header /><main>
+  return <><Header /><main ref={mainRef}>
     <section id="home" className="portfolio-hero relative isolate overflow-hidden pt-16">
       <img src={hero} alt="Jaber Nafiz" fetchPriority="high" className="hero-portrait absolute right-0 top-16 h-[calc(100%-4rem)] object-cover object-top" />
       <div className="hero-shade pointer-events-none absolute inset-0" />
