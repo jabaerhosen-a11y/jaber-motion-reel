@@ -14,3 +14,5 @@
 - Use InlineVideo for both showreel and gallery playback, with format logic in video-format so aspect ratios remain consistent.
 - Resolve portfolio playback through video-media and CDN pointers into native video elements so one click starts playback without Drive's nested player; prefer the configured gig project for the showreel.
 - Service slides use Embla Auto Scroll for continuous motion, pausing on hover/focus and respecting reduced motion.
+- Home scroll entrances use a shared progressive-enhancement observer; leave content visible without JavaScript or with reduced motion.
+- Format contact inquiry data through project-brief for consistent WhatsApp and email messages; video choices live alongside the formatter.

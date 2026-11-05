@@ -216,7 +216,7 @@
 .hero-portrait { width: 52%; }
 .hero-copy { height: 100%; }
 .hero-shade { background: linear-gradient(90deg, var(--background) 0%, var(--background) 38%, transparent 65%); }
-.work-tile { animation: tile-enter 550ms ease-out both; }
+.work-tile { min-width: 0; }
 @keyframes tile-enter { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
 @media (max-width: 767px) {
   .portfolio-hero { min-height: 0; height: auto; }
@@ -229,3 +229,12 @@
   .hero-shade { background: linear-gradient(180deg, transparent 22%, var(--background) 46%); }
 }
 @media (prefers-reduced-motion: reduce) { .work-tile { animation: none; } }
+
+.scroll-reveal { opacity: 0; transform: translateY(32px); transition: opacity 700ms ease, transform 850ms cubic-bezier(.22, 1, .36, 1); }
+.scroll-reveal.is-revealed { opacity: 1; transform: translateY(0); }
+.services-section { position: relative; border-top-color: var(--primary); }
+.service-card::before { content: ""; position: absolute; top: 0; left: 28px; width: 48px; height: 3px; background: var(--primary); transition: width 350ms ease; }
+.service-card:hover::before, .service-card:focus-within::before { width: calc(100% - 56px); }
+.services-carousel { position: relative; }
+.services-carousel::after { content: ""; pointer-events: none; position: absolute; inset: 0; background: linear-gradient(90deg, transparent 94%, var(--background-alt)); }
+@media (prefers-reduced-motion: reduce) { .scroll-reveal { opacity: 1; transform: none; transition: none; } }
