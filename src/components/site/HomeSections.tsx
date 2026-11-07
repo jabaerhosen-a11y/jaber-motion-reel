@@ -14,10 +14,16 @@ export function ServicesSlideshow({ services }: { services: Service[] }) {
   useEffect(() => {
     if (!api) return;
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const sync = () => { if (motion.matches) autoScroll.stop(); else autoScroll.play(); };
-    sync();
+    const sync = () => {
+      const plugin = api.plugins()?.autoScroll;
+      if (!plugin) return;
+      try { if (motion.matches) plugin.stop(); else plugin.play(); } catch { /* plugin not initialised yet */ }
+    };
+    const start = () => sync();
+    if (api.slideNodes().length) start();
+    api.on("init", start).on("reInit", start);
     motion.addEventListener("change", sync);
-    return () => { motion.removeEventListener("change", sync); autoScroll.stop(); };
+    return () => { motion.removeEventListener("change", sync); api.off("init", start).off("reInit", start); };
   }, [api, autoScroll]);
   const icons = [Scissors, Sparkles, Film, MonitorPlay];
   return <section id="services" className="services-section scroll-mt-24 overflow-hidden border-y border-border bg-background-alt py-16 md:py-24">
