@@ -1,6 +1,8 @@
 # Tasks
-- [ ] Add Google's verification tag and a public sitemap.
-- [ ] Publish with approval, verify ownership, and submit the sitemap.
+- [x] Fix reported SEO copy and metadata issues; verify a router-derived sitemap.
+- [x] Add Google's verification tag and a public sitemap.
+- [ ] Publish with approval, verify ownership, and submit the sitemap. Blocked on publication approval.
+- [ ] Dedicated services-page SEO suggestion is not applied: conflicts with the required single-page portfolio.
 - [x] Add scroll-triggered text and element entrance animations.
 - [x] Make the services section more noticeable while preserving continuous hover-paused slides.
 - [x] Improve inquiry fields, add video-type selection, and organize the WhatsApp brief.
