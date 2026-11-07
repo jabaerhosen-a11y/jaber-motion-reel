@@ -1,4 +1,5 @@
 # Tasks
+- [ ] Fix reported SEO copy and metadata issues; verify a router-derived sitemap.
 - [ ] Add Google's verification tag and a public sitemap.
 - [ ] Publish with approval, verify ownership, and submit the sitemap.
 - [x] Add scroll-triggered text and element entrance animations.

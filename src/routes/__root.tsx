@@ -79,12 +79,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Jaber Nafiz — Video Editor" },
-      { name: "description", content: "Video editing and motion graphics by Jaber Nafiz." },
+      { title: "Jaber Nafiz — Films, Reels & Motion Graphics Portfolio" },
+      { name: "description", content: "Explore Jaber Nafiz's portfolio of films, social reels, commercials and motion graphics, and get in touch about your next video editing project." },
       { name: "author", content: "Jaber Nafiz" },
       { name: "google-site-verification", content: "llTKHivrCyF62Ntsshe0lrBC7BxKt-olvvuI5BQzfyk" },
-      { property: "og:title", content: "Jaber Nafiz — Video Editor" },
-      { property: "og:description", content: "Video editing and motion graphics by Jaber Nafiz." },
+      { property: "og:title", content: "Jaber Nafiz — Films, Reels & Motion Graphics Portfolio" },
+      { property: "og:description", content: "Watch films, social reels, commercials and motion graphics by Jaber Nafiz. Explore the work and start your next video project." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
 

@@ -15,11 +15,12 @@ export const Route = createFileRoute("/")({
   staticData: { sitemap: true },
   head: () => ({ meta: [
     { title: "Jaber Nafiz — Video Editor & Motion Graphics Designer" },
-    { name: "description", content: "Explore Jaber Nafiz's films, reels and motion graphics. Watch the portfolio and start your next project." },
+    { name: "description", content: "Watch Jaber Nafiz's video editing and motion graphics portfolio: commercials, social reels, SaaS demos and more. Send a brief for your next video." },
     { property: "og:title", content: "Jaber Nafiz — Video Editor & Motion Graphics Designer" },
-    { property: "og:description", content: "Films, reels and motion graphics. Every frame intentional." },
+    { property: "og:description", content: "Explore Jaber Nafiz's films, social reels, commercials and motion graphics. Watch the work and send a brief for your next video." },
+    { property: "og:url", content: "https://jabers-portfolio.lovable.app/" },
     { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
-  ] }),
+  ], links: [{ rel: "canonical", href: "https://jabers-portfolio.lovable.app/" }] }),
   loader: ({ context }) => Promise.all([context.queryClient.ensureQueryData(projectsQuery), context.queryClient.ensureQueryData(servicesQuery), context.queryClient.ensureQueryData(settingsQuery)]),
   component: Home,
 });
