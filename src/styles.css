@@ -238,3 +238,18 @@
 .services-carousel { position: relative; }
 .services-carousel::after { content: ""; pointer-events: none; position: absolute; inset: 0; background: linear-gradient(90deg, transparent 94%, var(--background-alt)); }
 @media (prefers-reduced-motion: reduce) { .scroll-reveal { opacity: 1; transform: none; transition: none; } }
+
+/* Hero 3D typed title + water effects */
+.water-title { transform-style: preserve-3d; transition: transform .25s ease-out; cursor: default;
+  text-shadow: 1px 1px 0 color-mix(in oklch, var(--primary) 45%, transparent), 2px 2px 0 color-mix(in oklch, var(--primary) 30%, transparent), 4px 4px 0 color-mix(in oklch, var(--primary) 15%, transparent), 0 10px 30px oklch(0 0 0 / .6); }
+.type-char { display: inline-block; opacity: 0; transform: translateY(.4em) rotateX(-90deg); animation: type-in .5s cubic-bezier(.2,.8,.2,1) forwards; }
+.water-title:hover .type-char { animation: type-in .5s forwards, water-wave 1.4s ease-in-out infinite; animation-delay: 0s, calc(var(--i) * .07s); }
+@keyframes type-in { to { opacity: 1; transform: none; } }
+@keyframes water-wave { 0%,100% { transform: translateY(0) skewX(0); } 25% { transform: translateY(-.08em) skewX(-4deg); filter: blur(.4px); } 50% { transform: translateY(.05em) skewX(3deg); } }
+.water-drop { position: absolute; width: 0; height: 0; }
+.water-drop i { position: absolute; left: 0; top: 0; width: 20px; height: 20px; margin: -10px 0 0 -10px; border-radius: 50%;
+  border: 2px solid var(--primary); box-shadow: 0 0 18px var(--primary), inset 0 0 12px color-mix(in oklch, var(--primary) 40%, transparent);
+  animation: drop-ripple 1.5s cubic-bezier(.1,.6,.3,1) forwards; }
+.water-drop i:nth-child(2) { animation-delay: .18s; } .water-drop i:nth-child(3) { animation-delay: .36s; }
+@keyframes drop-ripple { 0% { transform: scale(0); opacity: 1; } 100% { transform: scale(18); opacity: 0; border-width: .5px; } }
+@media (prefers-reduced-motion: reduce) { .type-char { animation: none; opacity: 1; transform: none; } .water-title:hover .type-char { animation: none; } .water-drop { display: none; } }
