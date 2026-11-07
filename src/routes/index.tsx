@@ -40,7 +40,7 @@ function Home() {
         <p className="eyebrow flex items-center gap-2"><span className="size-2 rounded-full bg-primary" />{settings?.availability === "available" ? "Available for projects" : "Video editor & motion designer"}</p>
         <h1 className="text-mega mt-6 text-5xl sm:text-7xl lg:text-8xl">JABER<br /><span className="text-primary">NAFIZ.</span></h1>
         <p className="mt-5 max-w-md font-display text-xl md:text-2xl">Video Editor.<br />Motion Graphics Designer.</p>
-        <p className="mt-5 max-w-md text-sm leading-relaxed text-muted-foreground">{settings?.hero_subtext}</p>
+        <p className="mt-5 max-w-md text-sm leading-relaxed text-muted-foreground">{settings?.hero_subtext?.trim() || "Video editing and motion graphics for creators, brands and businesses — from talking-head videos and SaaS demos to commercials, travel films and social reels."}</p>
         <div className="mt-8 flex flex-wrap gap-3"><Button asChild size="lg"><a href="#work"><Play className="fill-current" />View my work</a></Button><Button asChild variant="outline" size="lg"><a href="#contact">Start a project<ArrowUpRight /></a></Button></div>
         <a href="#work" aria-label="Scroll to work" className="mt-10 self-start text-muted-foreground hover:text-primary"><ArrowDown className="size-5" /></a>
       </div>
